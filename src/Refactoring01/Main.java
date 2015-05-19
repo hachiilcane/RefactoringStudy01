@@ -18,8 +18,9 @@ public class Main {
 		mario.addRental(r2);
 		mario.addRental(r3);
 
-		String marioStatement = mario.statement();
-		System.out.println(marioStatement);
+		System.out.println(mario.statement());
+		System.out.println("\n\nHTML version --------");
+		System.out.println(mario.htmlStatement());
 	}
 
 }
