@@ -6,19 +6,31 @@ public class Movie {
 	public static final int NEW_RELEASE = 1;
 
 	private String _title;
-	private int _priceCode;
+	private Price _price;
 
 	public Movie(String title, int priceCode) {
 		_title = title;
-		_priceCode = priceCode;
+		setPriceCode(priceCode);
 	}
 
 	public int getPriceCode() {
-		return _priceCode;
+		return _price.getPriceCode();
 	}
 
 	public void setPriceCode(int arg) {
-		_priceCode = arg;
+		switch(arg) {
+		case REGULAR:
+			_price = new RegularPrice();
+			break;
+		case CHILDRENS:
+			_price = new ChildrensPrice();
+			break;
+		case NEW_RELEASE:
+			_price = new NewReleasePrice();
+			break;
+		default:
+			throw new IllegalArgumentException("不正な料金コード");
+		}
 	}
 
 	public String getTitle() {
@@ -26,29 +38,10 @@ public class Movie {
 	}
 
 	public double getCharge(int daysRented) {
-		double result = 0;
-		// 一行ごとに金額を計算
-		switch (getPriceCode()) {
-		case Movie.REGULAR:
-			result += 2;
-			if (daysRented > 2)
-				result += (daysRented - 2) * 1.5;
-			break;
-		case Movie.NEW_RELEASE:
-			result += daysRented * 3;
-			break;
-		case Movie.CHILDRENS:
-			result += 1.5;
-			result += (daysRented - 3) * 1.5;
-			break;
-		}
-		return result;
+		return _price.getCharge(daysRented);
 	}
 
 	public int getFrequentRenterPoints(int daysRented) {
-		if ((getPriceCode() == Movie.NEW_RELEASE) && daysRented > 1)
-			return 2;
-		else
-			return 1;
+		return _price.getFrequentRenterPoints(daysRented);
 	}
 }
