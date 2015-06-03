@@ -37,7 +37,7 @@ public class CustomerTest {
 	}
 
 	@Test
-	public void 映画3本をいろいろ借りた時の計算書出力が正しい1() {
+	public void 映画3本をそれぞれ長めに借りた時の計算書出力が正しい() {
 		// Setup
 		Movie m1 = new Movie("風と共に去りぬ", 0);
 		Movie m2 = new Movie("イミテーション・ゲーム", 1);
@@ -67,7 +67,7 @@ public class CustomerTest {
 	}
 
 	@Test
-	public void 映画3本をいろいろ借りた時の計算書出力が正しい2() {
+	public void 映画3本をそれぞれ1日借りた時の計算書出力が正しい() {
 		// Setup
 		Movie m1 = new Movie("風と共に去りぬ", 0);
 		Movie m2 = new Movie("イミテーション・ゲーム", 1);
