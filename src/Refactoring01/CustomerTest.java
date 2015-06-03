@@ -96,4 +96,35 @@ public class CustomerTest {
 		assertThat(actual, is(expected));
 	}
 
+	@Test
+	public void HTMLステートメントで出力する() {
+		// Setup
+		Movie m1 = new Movie("風と共に去りぬ", 0);
+		Movie m2 = new Movie("イミテーション・ゲーム", 1);
+		Movie m3 = new Movie("映画クレヨンしんちゃん", 2);
+
+		Rental r1 = new Rental(m1, 5);
+		Rental r2 = new Rental(m2, 3);
+		Rental r3 = new Rental(m3, 7);
+
+		Customer target = new Customer("まりお");
+		target.addRental(r1);
+		target.addRental(r2);
+		target.addRental(r3);
+
+		String expected = "<H1>Rentals for <EM>まりお</EM></H1><P>\n"
+				+ "風と共に去りぬ: 6.5<BR>\n"
+				+ "イミテーション・ゲーム: 9.0<BR>\n"
+				+ "映画クレヨンしんちゃん: 7.5<BR>\n"
+				+ "<P>You owe <EM>23.0</EM><P>\n"
+				+ "On this rental you earned <EM>4</EM> frequent renter points<P>";
+
+		// Exercise
+		String actual = target.htmlstatement();
+
+		// Verify
+		assertThat(actual, is(expected));
+	}
+
+
 }
