@@ -1,18 +1,18 @@
 package Refactoring01;
 
-import java.util.Enumeration;
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.List;
 
 class Customer {
 	private String _name;
-	private Vector _rentals = new Vector();
+	private List<Rental> _rentals = new ArrayList<Rental>();
 
 	public Customer(String name) {
 		_name = name;
 	}
 
 	public void addRental(Rental arg) {
-		_rentals.addElement(arg);
+		_rentals.add(arg);
 	}
 
 	public String getName() {
@@ -20,15 +20,13 @@ class Customer {
 	}
 
 	public String statement() {
-		Enumeration rentals = _rentals.elements();
 		String result = "Rental Record for " + getName() + "\n";
-		while (rentals.hasMoreElements()) {
-			Rental each = (Rental) rentals.nextElement();
-
+		for(Rental rental : _rentals){
 			// この貸出に関する数値の表示
-			result += "\t" + each.getMovie().getTitle() + "\t"
-					+ String.valueOf(each.getCharge()) + "\n";
+			result += "\t" + rental.getMovie().getTitle() + "\t"
+					+ String.valueOf(rental.getCharge()) + "\n";
 		}
+
 		// フッタ部分の追加
 		result += "Amount owed is " + String.valueOf(getTotalCharge()) + "\n";
 		result += "You earned "
@@ -39,34 +37,27 @@ class Customer {
 
 	private double getTotalCharge() {
 		double result = 0;
-		Enumeration rentals = _rentals.elements();
-		while (rentals.hasMoreElements()) {
-			Rental each = (Rental) rentals.nextElement();
-			result += each.getCharge();
+		for(Rental rental : _rentals){
+			result += rental.getCharge();
 		}
 		return result;
 	}
 
 	private int getTotalFrequentRenterPoints() {
 		int result = 0;
-		Enumeration rentals = _rentals.elements();
-		while (rentals.hasMoreElements()) {
-			Rental each = (Rental) rentals.nextElement();
-			result += each.getFrequentRenterPoints();
+		for(Rental rental : _rentals){
+			result += rental.getFrequentRenterPoints();
 		}
 		return result;
-
 	}
 
 	public String htmlstatement() {
-		Enumeration rentals = _rentals.elements();
 		String result = "<H1>Rentals for <EM>" + getName() + "</EM></H1><P>\n";
-		while (rentals.hasMoreElements()) {
-			Rental each = (Rental) rentals.nextElement();
+		for(Rental rental : _rentals){
 
 			// この貸出に関する数値の表示
-			result += each.getMovie().getTitle() + ": "
-					+ String.valueOf(each.getCharge()) + "<BR>\n";
+			result += rental.getMovie().getTitle() + ": "
+					+ String.valueOf(rental.getCharge()) + "<BR>\n";
 		}
 		// フッタ部分の追加
 		result += "<P>You owe <EM>" + String.valueOf(getTotalCharge())
